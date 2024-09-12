@@ -1,0 +1,110 @@
+<div class="container box">
+  <div>
+    <label>Name :</label> {{user.firstName}} {{user.middleName}} {{user.lastName}}
+  </div>
+  <div>
+    <label>{{account.type}} Account Number :</label> {{account._id}}
+  </div>
+  <div>
+    <label>Balance : </label>
+    <ng-container *ngIf="account.balance?.amount">{{account.balance.amount | currency : 'INR' }}</ng-container>
+<a *ngIf="!account.balance?.amount" class="arrow" style="cursor: pointer" (click)="openBalanceModal()"><i class="fa fa-plus"></i>Add</a>    
+  </div>
+</div>
+<div class="container tabledet" >
+<a *ngIf="account.balance?.amount" class="arrow" style="cursor: pointer" (click)="openTransactionModal()"><i class="fa fa-plus"></i>Add Transaction</a>    
+<ng-container *ngIf="transactions.length!=0">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          <label>Ref Number</label>
+        </th>
+        <th>
+          <label>Date</label>
+        </th>
+        <th>
+          <label>Credit</label>
+        </th>
+        <th>
+          <label>Debit</label>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let trans of transactions">
+        <td style="text-align: center;">
+          {{trans._id}}
+        </td>
+        <td  style="text-align: center;">
+          {{trans.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}
+        </td>
+        <td style="text-align: right;">
+          <p *ngIf="trans.type=='CREDIT'" else elseTemplate>
+            {{trans.amount | currency : 'INR' }}
+          </p>
+        </td>
+        <td style="text-align: right;">
+          <p *ngIf="trans.type=='DEBIT'">
+            {{trans.amount | currency : 'INR' }}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+</div>
+<div class="modal" id="balanceModal" tabindex="0" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="balancesave()" role="form" class="well" ng-hide="ifSearchUser">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Balance</h4>
+          <button type="button" class="close" aria-label="Close" (click)="balanceModalclose()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Amount</label>
+            <input type="text" class="form-control form-control-sm" id="amount" [(ngModel)]="balance.amount"
+              name="amount">
+            <label>Currency</label>
+            <input type="text" class="form-control form-control-sm" id="currency" [(ngModel)]="balance.currency"
+              name="currency">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-default" (click)="balanceModalclose()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="transactionModal" tabindex="0" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="transactionsave()" role="form" class="well" ng-hide="ifSearchUser">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Transaction</h4>
+          <button type="button" class="close" aria-label="Close" (click)="transactionModalclose()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Transaction Type</label>
+            <input type="text" class="form-control form-control-sm" id="type" [(ngModel)]="transaction.type"
+              name="type">
+            <label>Amount</label>
+            <input type="text" class="form-control form-control-sm" id="Amount" [(ngModel)]="transaction.amount"
+              name="amount">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-default" (click)="transactionModalclose()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

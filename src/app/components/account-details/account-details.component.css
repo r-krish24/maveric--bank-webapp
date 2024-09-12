@@ -1,0 +1,33 @@
+.box {
+    padding: 16px;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+.table tr:hover {background-color: #ddd;}
+
+.table th {
+  text-align: center;
+  background-color: #ffeecc;
+}
+
+table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}

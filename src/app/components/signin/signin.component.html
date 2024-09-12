@@ -1,0 +1,22 @@
+<div class="login-form">
+  <h3>Login</h3>
+  <form (ngSubmit)="getToken()" role="form" class="well" ng-hide="ifSearchUser">
+    <div class="form-group">
+      <label for="email"><b>Email Id</b></label>
+      <input type="text" required class="form-control" placeholder="Enter Email Id" name="email"
+        [(ngModel)]="authrequest.email">
+    </div>
+    <div class="form-group">
+      <label for="psw"><b>Password</b></label>
+      <input type="password" required class="form-control form-control-sm" placeholder="Enter Password"
+        [(ngModel)]="authrequest.password" name="psw">
+    </div>
+    <div class="action">
+      <button type="submit">Login</button>
+    </div>
+    <div class="create-account-wrap">
+      <p>Not a member? <a (click)="signupnavigate()">Create Account</a>
+      <p>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,63 @@
+<br>
+<div class="container">
+  <div>
+    <label style="font-size: 20px;">Account Details : </label>
+    <a *ngIf="!account.balance?.amount" class="arrow" style="cursor:pointer;margin-left: 10px;" (click)="openFormModal()"><i class="fa fa-plus"></i>Add Account</a>
+  </div>
+
+</div>
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let account of accounts">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><a (click)="accountDetails(account._id)" style="cursor:pointer;">{{account.type}}</a></mat-card-title>
+          <span fxFlex></span>
+				<button mat-icon-button (click)="accountDelete(account._id)">
+					<mat-icon>delete</mat-icon>
+				</button>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <p>
+            Account : <a (click)="accountDetails(account._id)" style="cursor:pointer;">{{account._id}}</a>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  </div>
+
+
+<div class="modal" id="accountModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="accountsave()" role="form" class="well" ng-hide="ifSearchUser">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Account</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modalclose()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Account Type : </label>
+            <!-- <input type="text" class="form-control form-control-sm" id="type" [(ngModel)]="account.type" name="type"> -->
+            <mat-form-field>
+              <mat-select [(value)]="account.type">
+                <mat-option value="SAVINGS">SAVINGS</mat-option>
+                <mat-option value="CURRENT">CURRENT</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-default" (click)="modalclose()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
